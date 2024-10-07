@@ -32,15 +32,13 @@ public class DoublyLinkedListDriver {
         } else {
             System.out.println("Invalid list type, system exiting...");
             System.exit(0);
-        }
+        } // if
 
 
 
         try {
             File file = new File(fileName);
             Scanner fileScanner = new Scanner(file);
-
-            // turn file into a SortedLinked List
             while (fileScanner.hasNext()) {
 
                 if (type.equals("i") && fileScanner.hasNextInt()) {
@@ -55,7 +53,7 @@ public class DoublyLinkedListDriver {
                 } else {
                     System.out.println("Invalid data type in file or mismatching item type.");
                     break;
-                }
+                } // if
 
             } // while
 
@@ -63,7 +61,7 @@ public class DoublyLinkedListDriver {
         } catch (Exception e) {
             System.out.println(e);
             e.printStackTrace();
-        } // catch
+        } // try-catch
 
         System.out.print(
             "Commands:\n" +
@@ -101,10 +99,10 @@ public class DoublyLinkedListDriver {
                         ((DoublyLinkedList<String>) list).insertItem(insertInput);
                     } else {
                         throw new IllegalArgumentException("Invalid data type");
-                    }
+                    } // if
                 } catch (IllegalArgumentException e) {
                     System.out.println("Invalid input please enter a valid " + dataType);
-                } // convert input to generic
+                } // try-catch
                 System.out.print("The list is: ");
                 list.print();
                 System.out.print("The reverse list: ");
@@ -125,16 +123,14 @@ public class DoublyLinkedListDriver {
                         ((DoublyLinkedList<String>) list).deleteItem(deleteInput);
                     } else {
                         throw new IllegalArgumentException("Invalid data type");
-                    }
+                    } // if
                 } catch (IllegalArgumentException e) {
                     System.out.println("Invalid input please enter a valid " + dataType);
-                } // convert input to generic
+                } // try-catch
                 System.out.print("The list is: ");
                 list.print();
                 System.out.print("The reverse list: ");
                 list.printReverse();
-
-
                 break;
             case "p": // print listh
                 System.out.print("The list is : ");
@@ -155,9 +151,7 @@ public class DoublyLinkedListDriver {
                 list.print();
                 System.out.print("The reversed list: ");
                 list.reverseList();
-                //list.print();
-
-
+                list.print();
                 break;
             case "b": // delete subsection
                 try {
@@ -167,7 +161,7 @@ public class DoublyLinkedListDriver {
                     String upperBoundInput = textScanner.nextLine();
 
                     System.out.print("The original list: ");
-                    list.print(); // before the list is modified
+                    list.print();
 
                     if (dataType.equals("integer")) {
                         Integer lowerBound = Integer.parseInt(lowerBoundInput);
@@ -178,18 +172,24 @@ public class DoublyLinkedListDriver {
                         Double  upperBound = Double.parseDouble(upperBoundInput);
                         ((DoublyLinkedList<Double>) list).deleteSubsection(lowerBound, upperBound);
                     } else if (dataType.equals("string")) {
-                        ((DoublyLinkedList<String>) list).deleteSubsection(lowerBoundInput, upperBoundInput);
+               ((DoublyLinkedList<String>) list).deleteSubsection(lowerBoundInput, upperBoundInput);
                     } else {
                         throw new IllegalArgumentException("Invalid data type");
-                    }
+                    } // if
 
                     System.out.print("The modified list: ");
-                    list.print(); // same command but after list has been modified
-                    System.out.print("The reverse list: ");
-                    list.printReverse();
+                    if (list.length() != 0) {
+                        list.print();
+                    } else {
+                        System.out.println();
+                    } // if
+                    if (list.length() != 0) {
+                        System.out.print("The reverse list: ");
+                        list.printReverse();
+                    } // if
                 } catch (IllegalArgumentException e) {
                     System.out.println("Invalid input please enter a valid " + dataType);
-                } // convert input to generic
+                } // try-catch
                 break;
             case "s": // swap alt
                 System.out.print("The original list: ");
@@ -202,7 +202,7 @@ public class DoublyLinkedListDriver {
                     ((DoublyLinkedList<Double>) list).swapAlternate();
                 } else if (dataType.equals("string")) {
                     ((DoublyLinkedList<String>) list).swapAlternate();
-                }
+                } // if
 
                 // print modified list
                 System.out.print("The modified list: ");
@@ -221,10 +221,9 @@ public class DoublyLinkedListDriver {
             default:
                 System.out.println("Invalid command try again");
                 break;
-            } // switch case
+            } // switch-case
 
-
-        } // main functioning loop
+        } // while
 
     } // DoublyLinkedListDriver
 

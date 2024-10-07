@@ -77,6 +77,7 @@ public class DoublyLinkedList<T extends Comparable<T>> {
         // if list is empty
         if (this.head == null) {
             System.out.println("The list is empty, you cannot delete. Hope this helps. ❤️  ");
+            return;
         } // if
 
         NodeType<T> current = this.head;
@@ -155,11 +156,20 @@ public class DoublyLinkedList<T extends Comparable<T>> {
     } // print
 
     /**
-     *
-     *
+     * Prints the elements of the list in reverse order starting from the tail
      */
     public void printReverse() {
+        if (tail == null) {
+            System.out.println(" ");
+        } else {
+            NodeType<T> current = tail;
+            while (current != null) {
+                System.out.print(current.info + " ");
+                current = current.back;
+            } // while
+        } // if
 
+        System.out.println();
     } // printReverse
 
 
@@ -169,27 +179,88 @@ public class DoublyLinkedList<T extends Comparable<T>> {
     /*----------------------------------------------------------------*/
 
     /**
+     * Deletes a section of the list specified by the user input
      *
-     *
+     * @param lower The lower bound of the section to be deleted
+     * @param upper The upper bound of the section to be deleted
      */
-    public void deleteSubsection() {
+    public void deleteSubsection(T lower, T upper) {
+        // if list is empty
+        if (this.head == null) {
+            return;
+        } // if
 
+        while (head != null && head.info.compareTo(lower) >= 0 && head.info.compareTo(upper) <= 0) {
+            head = head.next;
+
+            if (head != null) {
+                head.back = null;
+            } // if
+        } // while
+
+        NodeType<T> current = head;
+        while (current != null && current.next != null) {
+            if(current.next.info.compareTo(lower) >= 0 && current.next.info.compareTo(upper) <= 0) {
+                current.next = current.next.next;
+                if (current.next != null) {
+                    current.next.back = current;
+                } // if
+            } else {
+                current = current.next;
+            } // if
+        } // while
     } // deleteSubsection
 
     /**
-     *
-     *
+     * Reverses the linked list by swapping the next and back pointers for each node
      */
     public void reverseList() {
+        if (head == null) {
+            System.out.print("The list is empty, nothing to reverse. Hope this helps. ❤️  ");
+            return;
+        } // if
 
+        NodeType<T> current = head;
+        NodeType<T> prev;
+
+        while (current != null) {
+            prev = current.next;
+            current.next = current.back;
+            current.back = prev;
+            current = current.back;
+        } // while
+
+        prev = head;
+        head = tail;
+        tail = prev;
+
+
+        if (head != null) {
+            head.back = null;
+        } // if
+
+        if (tail != null) {
+            tail.next = null;
+        } // if
     } // reverseList
 
     /**
-     *
-     *
+     * Swaps the data between adjacent nodes in the list, alternating
+     * the values in pairs. This continues until the end of the list is reached.
      */
     public void swapAlternate() {
+        if (this.head == null || this.head.next == null) {
+            return;
+        } // if
 
+        NodeType<T> current = this.head;
+
+        do {
+            T temp = current.info;
+            current.info = current.next.info;
+            current.next.info = temp;
+            current = current.next.next;
+        } while (current != null && current.next != null); // do-while
     } // swapAlternate
 
 
